@@ -1,0 +1,54 @@
+[Unit]
+Description=PSYWARD Document Management System
+After=network.target redis.service
+Wants=redis.service
+
+[Service]
+Type=exec
+User=psyward
+Group=psyward
+WorkingDirectory=/opt/psyward
+Environment="PATH=/opt/psyward/venv/bin"
+EnvironmentFile=/etc/psyward/psyward.env
+
+# Resource limits for Pi Zero
+CPUQuota=80%
+MemoryMax=400M
+MemoryHigh=350M
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/mnt/encrypted_data /var/log/psyward
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+# Start command
+ExecStart=/opt/psyward/venv/bin/gunicorn \
+    --workers 1 \
+    --threads 2 \
+    --worker-class sync \
+    --worker-tmp-dir /dev/shm \
+    --timeout 300 \
+    --bind 127.0.0.1:5000 \
+    --access-logfile /var/log/psyward/access.log \
+    --error-logfile /var/log/psyward/error.log \
+    app:app
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Watchdog
+WatchdogSec=300
+
+[Install]
+WantedBy=multi-user.target

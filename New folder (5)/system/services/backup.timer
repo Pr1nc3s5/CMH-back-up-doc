@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily backup of PSYWARD data
+Documentation=man:psyward-backup
+
+[Timer]
+OnCalendar=daily
+OnCalendar=02:00
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

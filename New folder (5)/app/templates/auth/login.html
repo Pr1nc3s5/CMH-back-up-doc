@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Login - PSYWARD DMS{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin-top: 100px;">
+    <div class="card">
+        <h2 style="text-align: center; margin-bottom: 2rem;">PSYWARD Login</h2>
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group" id="totp-group" style="display: none;">
+                <label for="totp">2FA Code</label>
+                <input type="text" id="totp" name="totp" pattern="[0-9]{6}" maxlength="6">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+        <div id="session-warning" class="alert alert-warning" style="margin-top: 1rem; display: none;">
+            Session expires in <span id="countdown">30:00</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Paste the login-specific JavaScript here
+    function startSessionCountdown(seconds) {
+        /* ... login countdown code ... */
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        startSessionCountdown(1800);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - PSYWARD DMS{% endblock %}
+
+{% block content %}
+<h2>System Dashboard</h2>
+<div class="dashboard-grid">
+    <!-- Dashboard widgets -->
+</div>
+
+<div class="card">
+    <h3>Security Status</h3>
+    <ul style="list-style: none;">
+        <li>✅ Encryption: <strong>AES-256-GCM</strong></li>
+        <li id="audit-status">✅ Audit Log: <strong>Integrity OK</strong></li>
+        <!-- ... -->
+    </ul>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

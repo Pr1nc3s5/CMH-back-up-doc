@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Documents - PSYWARD DMS{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Upload Document</h3>
+    <div class="upload-zone" id="drop-zone">
+        <p>📄 Drag and drop files here or click to browse</p>
+        <input type="file" id="file-input" multiple accept="image/*,application/pdf" style="display: none;">
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+            Supported: JPEG, PNG, TIFF, PDF (max 10MB)
+        </p>
+    </div>
+    <div id="upload-progress" style="margin-top: 1rem; display: none;">
+        <div class="progress-bar" style="background: #e0e0e0; height: 20px; border-radius: 10px;">
+            <div class="progress-fill" style="background: var(--primary-color); height: 100%; width: 0%; border-radius: 10px; transition: width 0.3s;"></div>
+        </div>
+        <p style="text-align: center; margin-top: 0.5rem;">Uploading: <span id="upload-filename"></span></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+[Unit]
+Description=PSYWARD backup job
+After=psyward.service
+
+[Service]
+Type=oneshot
+User=psyward
+ExecStart=/opt/psyward/venv/bin/python /opt/psyward/scripts/backup.py
+StandardOutput=journal
+StandardError=journal
